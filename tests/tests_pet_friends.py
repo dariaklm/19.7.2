@@ -5,6 +5,7 @@ import os
 pf = PetFriends()
 
 
+
 def test_get_api_key_from_valid_user(email=valid_email, password=valid_password):
     """ Проверяем что запрос api ключа возвращает статус 200 и в тезультате содержится слово key"""
 
@@ -17,6 +18,7 @@ def test_get_api_key_from_valid_user(email=valid_email, password=valid_password)
     print(result)
 
 
+    
 def test_get_all_pets_with_valid_key(filter=""):
     """ Проверяем что запрос всех питомцев возвращает не пустой список.
         Для этого сначала получаем api ключ и сохраняем в переменную auth_key. Далее используя этого ключзапрашиваем 
@@ -26,6 +28,7 @@ def test_get_all_pets_with_valid_key(filter=""):
     assert status == 200
     assert len(result['pets']) > 0
 
+    
 
 def test_add_new_pet_with_valid_data(name='Кузя', animal_type='сиамский', age='2', pet_photo='images/cat1.jpg'):
     """Проверяем что можно добавить питомца с корректными данными"""
@@ -43,7 +46,7 @@ def test_add_new_pet_with_valid_data(name='Кузя', animal_type='сиамск�
     assert status == 200
     assert result['name'] == name
 
-
+    
 
 def test_create_pet_without_photo_with_valid_data(name='Толик', animal_type='бигль', age='1'):                                                  
     """Проверяем что можно добавить питомца с корректными данными"""
@@ -57,7 +60,9 @@ def test_create_pet_without_photo_with_valid_data(name='Толик', animal_type
     # Сверяем полученный ответ с ожидаемым результатом
     assert status == 200
     assert result['name'] == name
+    
 
+    
 def test_successful_add_pet_photo(pet_photo='images/cat1.jpg'):
     """Проверяем возможность добавления фото питомцу"""
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
@@ -76,6 +81,7 @@ def test_successful_add_pet_photo(pet_photo='images/cat1.jpg'):
         # если спсиок питомцев пустой, то выкидываем исключение с текстом об отсутствии своих питомцев
         raise Exception("Нет моих питомцев")
 
+        
 
 def test_successful_delete_self_pet():
     """Проверяем возможность удаления питомца"""
@@ -100,6 +106,7 @@ def test_successful_delete_self_pet():
     assert status == 200
     assert pet_id not in my_pets.values()
 
+    
 
 def test_successful_update_self_pet_info(name='Мурзик', animal_type='Сибирский кот', age=4):
     """Проверяем возможность обновления информации о питомце"""
@@ -119,6 +126,8 @@ def test_successful_update_self_pet_info(name='Мурзик', animal_type='Си�
         # если спиок питомцев пустой, то выкидываем исключение с текстом об отсутствии своих питомцев
         raise Exception("Нет моих питомцев")
 
+        
+        
 def test_add_new_pet_without_name(name='', animal_type='Бигль', age='13', pet_photo='images/dog1.jpg'):                                     
     """Проверяем что можно добавить питомца c пустым полем имя"""
 
@@ -133,7 +142,9 @@ def test_add_new_pet_without_name(name='', animal_type='Бигль', age='13', p
 
     # Сверяем полученный ответ с ожидаемым результатом. Ожидаем, что питомца без обязательного поля создать невозможно
     assert status == 400
+    
 
+    
 def test_add_new_pet_without_photo(name='Жуля', animal_type='колли', age='5', pet_photo=''):                                     
     """Проверяем что можно добавить питомца без прикрепления фото"""
 
@@ -148,7 +159,9 @@ def test_add_new_pet_without_photo(name='Жуля', animal_type='колли', ag
 
     # Сверяем полученный ответ с ожидаемым результатом. Ожидаем, что питомца без фото добавить данным методом нельзя
     assert status == 400
+    
 
+    
 def test_add_new_pet_without_animal_type(name='Жуля', animal_type='', age='5', pet_photo='images/dog1.jpg'):                                     
     """Проверяем что можно добавить питомца c пустым полем Тип животного"""
 
@@ -164,6 +177,8 @@ def test_add_new_pet_without_animal_type(name='Жуля', animal_type='', age='5
     # Сверяем полученный ответ с ожидаемым результатом. Ожидаем, что питомца без обязательного поля Тип животного
     assert status == 400
 
+    
+    
 def test_add_new_pet_without_age(name='Жуля', animal_type='колли', age='', pet_photo='images/dog1.jpg'):                                     
     """Проверяем что можно добавить питомца c пустым полем возраст"""
 
@@ -179,7 +194,9 @@ def test_add_new_pet_without_age(name='Жуля', animal_type='колли', age=
     # Сверяем полученный ответ с ожидаемым результатом.
     # Ожидаем, что питомца без обязательного поля возраст создать невозможно
     assert status == 400
+    
 
+    
 def test_add_new_pet_without_uncorrect_age_type(name='Жуля', animal_type='колли', age='qwerty', pet_photo='images/dog1.jpg'):                                     
     """Проверяем что можно добавить питомца с наполнением поля возраст буквенными значениями вместо цифровых"""
 
@@ -196,6 +213,8 @@ def test_add_new_pet_without_uncorrect_age_type(name='Жуля', animal_type='к
     # Ожидаем, что питомец с возрастом не числового значения не может быть создан
     assert status == 400
 
+    
+    
 def test_add_new_pet_with_age_more_then_2_symbols(name='Жуля', animal_type='колли', age='12345', pet_photo='images/dog1.jpg'):                                     
     """Проверяем что можно добавить питомца со значением более двух цифр в поле возраст"""
 
@@ -211,10 +230,11 @@ def test_add_new_pet_with_age_more_then_2_symbols(name='Жуля', animal_type='
     # если он состаляет 2 и менее цифр. В противном случае выводим ошибку
     if len(age) <= 2:
        assert status == 200
-
     else:
         # если возраст животного больше двух символов
         raise Exception("Введенное значение неверно")
+        
+        
 
 def test_get_api_key_with_wrong_password(email=valid_email, password='qwerty'):
     """ Проверяем что запрос api ключа возвращает статус 403 при неверно введенном пароле"""
@@ -225,6 +245,7 @@ def test_get_api_key_with_wrong_password(email=valid_email, password='qwerty'):
     # Сверяем полученные данные с нашими ожиданиями
     assert status == 403
     assert "key" not in result
+    
 
 
 def test_get_api_key_with_wrong_email(email='d.klimova@yandex.com', password=valid_password):
@@ -237,12 +258,16 @@ def test_get_api_key_with_wrong_email(email='d.klimova@yandex.com', password=val
     assert status == 403
     assert "key" not in result
 
+    
+    
 def test_get_my_pets_with_invalid_key(filter="my_pets"):
     """ Проверяем, что запрос "моих питомцев" при запросе с неверно указанным ключом ничего не возвращает """
     _, auth_key = pf.get_api_key(valid_email, valid_password)
     status, result = pf.get_list_of_pets({'key': 'd9ae3e7409cca4acb054f3433ebb881776982'}, filter)
     assert status == 403
 
+    
+    
 def test_create_pet_without_photo_with_invalid_key (name='Толик', animal_type='бигль', age='2'):                                                 
     """Проверяем что нельзя добавить питомца с некорректным ключом"""
 
